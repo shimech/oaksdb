@@ -11,7 +11,7 @@ class BlockIdTest {
         fun `正しくメンバ変数に設定されること`() {
             val actual = BlockId("oaksdb.odb", 1)
             assertEquals("oaksdb.odb", actual.fileName)
-            assertEquals(1, actual.blockNum)
+            assertEquals(1, actual.number)
         }
     }
 
