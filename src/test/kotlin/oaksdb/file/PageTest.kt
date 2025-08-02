@@ -1,10 +1,10 @@
 package oaksdb.file
 
+import oaksdb.helper.bshl
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import java.nio.charset.StandardCharsets
-import kotlin.math.pow
 import kotlin.test.Test
 
 class PageTest {
@@ -45,16 +45,12 @@ class PageTest {
         @Test
         fun `指定したオフセットの整数値を取得できること`() {
             // given
-            val expected = "llo,"
-                .toByteArray(StandardCharsets.US_ASCII)
-                .toTypedArray()
-                .reversed() // リトルエンディアン -> ビッグエンディアン
-                .map { it.toInt() }
-                .reduceIndexed { i, acc, cur -> acc + (cur * 2.toDouble().pow(8 * i)).toInt() }
+            val offset = 2
+            val expected = "llo,".toInt() // offset 2から4バイト分
             val sut = Page(HELLO_WORLD.toByteArray())
 
             // when
-            val actual = sut.getInt(2)
+            val actual = sut.getInt(offset)
 
             // then
             assertEquals(expected, actual)
@@ -72,10 +68,7 @@ class PageTest {
             // when
             sut.setInt(
                 4,
-                Array(4) {
-                    // 'X'はASCIIコードで88
-                    88
-                }.reduceIndexed { i, acc, cur -> acc + (cur * 2.toDouble().pow(8 * i)).toInt() }
+                "XXXX".toInt()
             )
 
             // then
@@ -150,4 +143,12 @@ class PageTest {
             assertEquals(expected, sut.getString(0))
         }
     }
+
+    private fun String.toInt(): Int {
+        return this
+            .toByteArray(StandardCharsets.US_ASCII).map { it.toInt() } // 文字列 -> バイト配列
+            .reversed() // リトルエンディアン -> ビッグエンディアン
+            .reduceIndexed { i, acc, cur -> acc + (cur bshl i) }
+    }
 }
+

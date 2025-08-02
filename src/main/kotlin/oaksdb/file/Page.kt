@@ -10,8 +10,15 @@ data class Page private constructor(
     companion object {
         private val CHARSET = StandardCharsets.US_ASCII
 
+        /**
+         * 特定の長さの文字列を格納するためのPage内のバイト数を計算する。
+         *
+         * @param length 文字列の長さ
+         * @return 文字列の長さに対するPage内のバイト数
+         */
         fun maxLength(length: Int): Int {
             val bytesPerChar = CHARSET.newEncoder().maxBytesPerChar()
+            // データ長をIntegerで保持するため、Integer.BYTESを加える。
             return Integer.BYTES + (length * bytesPerChar.toInt())
         }
     }
