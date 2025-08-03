@@ -4,6 +4,10 @@ import oaksdb.file.BlockId
 import oaksdb.file.FileManager
 import oaksdb.log.LogManager
 
+/**
+ * Buffer Manager
+ * データベースのシングルトン
+ */
 class BufferManager {
     private val buffers: List<Buffer>
     private var availableCount: Int
