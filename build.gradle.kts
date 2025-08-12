@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.1.0"
+    kotlin("jvm") version "2.2.0"
 }
 
 group = "app.kiyomaro"
@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
     testImplementation("io.mockk:mockk:1.14.5")
     testImplementation(kotlin("test"))
 
