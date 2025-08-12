@@ -111,7 +111,9 @@ data class SetStringRecord private constructor(
     }
 
     override fun undo(tx: Transaction) {
-        TODO()
+        tx.pin(block)
+        tx.setString(block, offset, value, false)
+        tx.unpin(block)
     }
 
     override fun toString(): String {

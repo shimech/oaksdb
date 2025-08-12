@@ -103,7 +103,9 @@ data class SetIntRecord private constructor(
     }
 
     override fun undo(tx: Transaction) {
-        TODO()
+        tx.pin(block)
+        tx.setInt(block, offset, value, false)
+        tx.unpin(block)
     }
 
     override fun toString(): String {
