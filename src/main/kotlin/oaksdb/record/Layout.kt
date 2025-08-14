@@ -12,7 +12,7 @@ data class Layout(
             val layout = Layout(
                 schema = schema,
                 offsets = mutableMapOf(),
-                slotSize = 0 // あとで計算するためダミーの値
+                slotSize = 0 // あとで計算するためダミーの値を設定する。
             )
             val slotSize = layout.schema.fields.fold(Integer.BYTES) { acc, fieldName ->
                 layout.offsets[fieldName] = acc
