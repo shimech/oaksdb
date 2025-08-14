@@ -22,8 +22,8 @@ data class Layout(
         }
     }
 
-    fun offset(fieldName: String): Int? {
-        return offsets[fieldName]
+    fun offset(fieldName: String): Int {
+        return offsets[fieldName] ?: throw RuntimeException()
     }
 
     private fun lengthInBytes(fieldName: String): Int {

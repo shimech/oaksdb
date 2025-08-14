@@ -21,9 +21,9 @@ class Transaction(
     )
     private val concurrencyManager = ConcurrencyManager()
     private val buffers = BufferList(bufferManager)
-    private val blockSize: Int
+    val blockSize: Int
         get() = fileManager.blockSize
-    private val availableBufferCount: Int
+    val availableBufferCount: Int
         get() = bufferManager.available
 
     companion object {
