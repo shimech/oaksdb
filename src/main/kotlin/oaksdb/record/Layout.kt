@@ -2,23 +2,23 @@ package oaksdb.record
 
 import java.sql.Types
 
-data class Layout(
-    val schema: Schema,
-    private val offsets: MutableMap<String, Int>,
+class Layout {
+    val schema: Schema
+    private val offsets: MutableMap<String, Int>
     val slotSize: Int
-) {
-    companion object {
-        fun of(schema: Schema): Layout {
-            val layout = Layout(
-                schema = schema,
-                offsets = mutableMapOf(),
-                slotSize = 0 // あとで計算するためダミーの値を設定する。
-            )
-            val slotSize = layout.schema.fields.fold(Integer.BYTES) { acc, fieldName ->
-                layout.offsets[fieldName] = acc
-                acc + layout.lengthInBytes(fieldName)
-            }
-            return layout.copy(slotSize = slotSize)
+
+    constructor(schema: Schema, offsets: MutableMap<String, Int>, slotSize: Int) {
+        this.schema = schema
+        this.offsets = offsets
+        this.slotSize = slotSize
+    }
+
+    constructor(schema: Schema) {
+        this.schema = schema
+        this.offsets = mutableMapOf()
+        this.slotSize = schema.fields.fold(Integer.BYTES) { acc, fieldName ->
+            offsets[fieldName] = acc
+            acc + lengthInBytes(fieldName)
         }
     }
 
