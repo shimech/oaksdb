@@ -43,6 +43,10 @@ class TableScan(
         return recordPage.getInt(currentSlot, fieldName)
     }
 
+    override fun getString(fieldName: String): String? {
+        return recordPage.getString(currentSlot, fieldName)
+    }
+
     override fun getVal(fieldName: String): Constant? {
         return when (layout.schema.type(fieldName)) {
             Types.INTEGER -> Constant.IntValue(getInt(fieldName) ?: return null)
