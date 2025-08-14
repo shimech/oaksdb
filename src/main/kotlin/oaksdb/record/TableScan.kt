@@ -5,15 +5,17 @@ import oaksdb.query.Constant
 import oaksdb.query.UpdateScan
 import oaksdb.tx.Transaction
 import java.sql.Types
+import kotlin.properties.Delegates
 
 class TableScan(
     private val tx: Transaction,
     private val layout: Layout,
-    tableName: String
+    private val tableName: String
 ) : UpdateScan {
-    private val fileName: String = "$tableName.tbl"
+    private val fileName: String
+        get() = "$tableName.tbl"
     private lateinit var recordPage: RecordPage
-    private var currentSlot: Int = -1
+    private var currentSlot: Int by Delegates.notNull()
 
     init {
         if (tx.size(fileName) == 0) {

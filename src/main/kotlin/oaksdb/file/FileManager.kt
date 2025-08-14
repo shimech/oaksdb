@@ -4,11 +4,10 @@ import java.io.File
 import java.io.IOException
 import java.io.RandomAccessFile
 
-data class FileManager(
+class FileManager(
     private val dbDirectory: File,
     val blockSize: Int,
 ) {
-
     val isNew: Boolean
         get() = !dbDirectory.exists()
 

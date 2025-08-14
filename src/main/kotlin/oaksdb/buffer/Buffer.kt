@@ -10,9 +10,7 @@ data class Buffer(
     private val logManager: LogManager
 ) {
     val contents = Page(fileManager.blockSize)
-    private var _block: BlockId? = null
-    val block: BlockId
-        get() = _block ?: throw IllegalStateException("Buffer is not assigned to a block")
+    lateinit var block: BlockId
     private var pins = 0
     var txNumber = -1
     private var lsn = -1
@@ -32,7 +30,7 @@ data class Buffer(
 
     fun assignToBlock(block: BlockId) {
         flush()
-        this._block = block
+        this.block = block
         fileManager.read(block, contents)
         pins = 0
     }
@@ -42,7 +40,7 @@ data class Buffer(
             return
         }
         logManager.flush(lsn)
-        fileManager.write(_block!!, contents)
+        fileManager.write(block, contents)
         txNumber--
     }
 

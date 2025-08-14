@@ -10,7 +10,7 @@ import oaksdb.tx.recovery.RecoveryManager
 class Transaction(
     private val fileManager: FileManager,
     private val bufferManager: BufferManager,
-    logManager: LogManager,
+    private val logManager: LogManager,
 ) {
     private val txNumber = nextTxNumber()
     private val recoveryManager = RecoveryManager(

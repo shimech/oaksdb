@@ -4,7 +4,7 @@ import oaksdb.file.BlockId
 import oaksdb.file.FileManager
 import oaksdb.file.Page
 
-data class LogManager(
+class LogManager(
     private val fileManager: FileManager,
     private val logFile: String,
 ) {

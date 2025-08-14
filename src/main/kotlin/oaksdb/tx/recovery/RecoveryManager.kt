@@ -5,7 +5,7 @@ import oaksdb.buffer.BufferManager
 import oaksdb.log.LogManager
 import oaksdb.tx.Transaction
 
-data class RecoveryManager(
+class RecoveryManager(
     private val logManager: LogManager,
     private val bufferManager: BufferManager,
     private val tx: Transaction,
