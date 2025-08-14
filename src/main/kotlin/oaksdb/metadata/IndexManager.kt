@@ -44,7 +44,7 @@ class IndexManager private constructor(
     fun getIndexInfo(
         tableName: String,
         tx: Transaction
-    ): MutableMap<String, IndexInfo> {
+    ): Map<String, IndexInfo> {
         val result = mutableMapOf<String, IndexInfo>()
         val tableScan = TableScan(tx, layout, "indexCatalog")
         while (tableScan.next()) {
