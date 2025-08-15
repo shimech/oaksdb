@@ -1,7 +1,6 @@
 package oaksdb.query
 
 sealed class Constant : Comparable<Constant> {
-
     data class IntValue(private val value: Int) : Constant() {
         fun asInt(): Int {
             return value
